@@ -10,6 +10,11 @@ Here's how it looks:
 
 ![whatisplaying](https://github.com/user-attachments/assets/92340afc-ce2f-4f69-aca5-22a44184fd47)
 
+Or on top of full screen game (World of Warcraft):
+
+![image](https://github.com/user-attachments/assets/fdfdcaf2-4614-4b3d-ade4-b2b1b055ca19)
+
+
 
 # Want more?
 Just ask for features here, I might be interested in implementing those :)
