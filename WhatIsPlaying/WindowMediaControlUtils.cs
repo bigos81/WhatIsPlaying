@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Media.Control;
+using Windows.Storage.Provider;
 
 
 namespace WhatIsPlaying
@@ -8,6 +9,8 @@ namespace WhatIsPlaying
     internal class WindowMediaControlUtils
     {
         public static string UnableToEstablishMediaMessage => "Unable to establish media...";
+        public static string NoMediaSessionFound => "No media player found...";
+
         private static String currentSongName = UnableToEstablishMediaMessage;
         
 
@@ -30,10 +33,18 @@ namespace WhatIsPlaying
 
             if (gsmtcsm != null)
             {
-                var mediaProperties = await GetMediaProperties(gsmtcsm.GetCurrentSession());
-                if (mediaProperties != null)
+                GlobalSystemMediaTransportControlsSession session = gsmtcsm.GetCurrentSession();
+                if (session != null)
                 {
-                    currentSongName = String.Format("{0} - {1}", mediaProperties.Artist, mediaProperties.Title);
+                    var mediaProperties = await GetMediaProperties(session);
+                    if (mediaProperties != null)
+                    {
+                        currentSongName = String.Format("{0} - {1}", mediaProperties.Artist, mediaProperties.Title);
+                    }
+                }
+                else
+                {
+                    currentSongName = NoMediaSessionFound;
                 }
             }
             else 
