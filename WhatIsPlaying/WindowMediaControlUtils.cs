@@ -7,18 +7,13 @@ namespace WhatIsPlaying
 {
     internal class WindowMediaControlUtils
     {
-        public static string UnableToEstablishMediaMessage => "Unable to establish media...";
-        public static string NoMediaSessionFound => "No media player found...";
+        public static string UnableToGetMediaManager => "Unable to get media manager...";
+        public static string NoMediaPlayerFound => "No media player found...";
 
-        private static String currentSongName = UnableToEstablishMediaMessage;
+        private static bool failed_before = false;
+        private static String currentSongName = UnableToGetMediaManager;
         private static GlobalSystemMediaTransportControlsSessionManager gsmtcsm;
 
-
-
-        WindowMediaControlUtils()
-        {
-            GetSessionManager();
-        }
 
         internal static String GetCurrentPlayedMedia()
         {
@@ -28,7 +23,7 @@ namespace WhatIsPlaying
                 {
                     GetSessionManager();
                 }
-                GetCurrentMediaTask();
+                FetchCurrentlyPlayedSong();
             }
             catch 
             {
@@ -40,9 +35,9 @@ namespace WhatIsPlaying
         private static async void GetSessionManager()
         {
             gsmtcsm = await GetSystemMediaTransportControlsSessionManager();
-         }
+        }
 
-        private static async void GetCurrentMediaTask()
+        private static async void FetchCurrentlyPlayedSong()
         {
             if (gsmtcsm != null)
             {
@@ -53,16 +48,25 @@ namespace WhatIsPlaying
                     if (mediaProperties != null)
                     {
                         currentSongName = String.Format("🎵 {0} - {1}", mediaProperties.Artist, mediaProperties.Title);
+                        failed_before = false;
                     }
                 }
                 else
                 {
-                    currentSongName = NoMediaSessionFound;
+                    if (failed_before)
+                    {
+                        currentSongName = NoMediaPlayerFound;
+                    }
+                    else
+                    {
+                        failed_before = true;
+                    }
+
                 }
             }
             else 
             {
-                currentSongName = UnableToEstablishMediaMessage; 
+                currentSongName = UnableToGetMediaManager; 
             }
         }
 
