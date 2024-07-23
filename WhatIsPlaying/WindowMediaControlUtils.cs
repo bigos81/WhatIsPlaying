@@ -13,7 +13,14 @@ namespace WhatIsPlaying
 
         internal static String GetCurrentPlayedMedia()
         {
-            GetCurrentMediaTask();
+            try
+            {
+                GetCurrentMediaTask();
+            }
+            catch 
+            { 
+                // silencio :)
+            }
             return currentSongName;
         }
 
@@ -36,7 +43,7 @@ namespace WhatIsPlaying
         }
 
         private static async Task<GlobalSystemMediaTransportControlsSessionManager> GetSystemMediaTransportControlsSessionManager() =>
-        await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
+            await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
 
         private static async Task<GlobalSystemMediaTransportControlsSessionMediaProperties> GetMediaProperties(GlobalSystemMediaTransportControlsSession session) =>
             await session.TryGetMediaPropertiesAsync();
