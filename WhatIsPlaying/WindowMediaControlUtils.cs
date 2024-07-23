@@ -11,25 +11,39 @@ namespace WhatIsPlaying
         public static string NoMediaSessionFound => "No media player found...";
 
         private static String currentSongName = UnableToEstablishMediaMessage;
-        
+        private static GlobalSystemMediaTransportControlsSessionManager gsmtcsm;
+
+
+
+        WindowMediaControlUtils()
+        {
+            GetSessionManager();
+        }
 
         internal static String GetCurrentPlayedMedia()
         {
             try
             {
+                if (gsmtcsm == null)
+                {
+                    GetSessionManager();
+                }
                 GetCurrentMediaTask();
             }
             catch 
-            { 
+            {
                 // silencio :)
             }
             return currentSongName;
         }
 
+        private static async void GetSessionManager()
+        {
+            gsmtcsm = await GetSystemMediaTransportControlsSessionManager();
+         }
+
         private static async void GetCurrentMediaTask()
         {
-            var gsmtcsm = await GetSystemMediaTransportControlsSessionManager();
-
             if (gsmtcsm != null)
             {
                 GlobalSystemMediaTransportControlsSession session = gsmtcsm.GetCurrentSession();
@@ -38,7 +52,7 @@ namespace WhatIsPlaying
                     var mediaProperties = await GetMediaProperties(session);
                     if (mediaProperties != null)
                     {
-                        currentSongName = String.Format("{0} - {1}", mediaProperties.Artist, mediaProperties.Title);
+                        currentSongName = String.Format("🎵 {0} - {1}", mediaProperties.Artist, mediaProperties.Title);
                     }
                 }
                 else
