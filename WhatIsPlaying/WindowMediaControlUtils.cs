@@ -5,7 +5,7 @@ using Windows.Media.Control;
 
 namespace WhatIsPlaying
 {
-    internal class WindowMediaControlUtils
+    internal static class WindowMediaControlUtils
     {
         public static string UnableToGetMediaManager => "Unable to get media manager...";
         public static string NoMediaPlayerFound => "No media player found...";
@@ -20,15 +20,11 @@ namespace WhatIsPlaying
             try
             {
                 if (gsmtcsm == null)
-                {
                     GetSessionManager();
-                }
+
                 FetchCurrentlyPlayedSong();
             }
-            catch 
-            {
-                // silencio :)
-            }
+            catch { /* silencio */ }
             return currentSongName;
         }
 
@@ -41,7 +37,7 @@ namespace WhatIsPlaying
         {
             if (gsmtcsm != null)
             {
-                GlobalSystemMediaTransportControlsSession session = gsmtcsm.GetCurrentSession();
+                var session = gsmtcsm.GetCurrentSession();
                 if (session != null)
                 {
                     var mediaProperties = await GetMediaProperties(session);
@@ -54,20 +50,13 @@ namespace WhatIsPlaying
                 else
                 {
                     if (failed_before)
-                    {
                         currentSongName = NoMediaPlayerFound;
-                    }
                     else
-                    {
                         failed_before = true;
-                    }
-
                 }
             }
             else 
-            {
                 currentSongName = UnableToGetMediaManager; 
-            }
         }
 
         private static async Task<GlobalSystemMediaTransportControlsSessionManager> GetSystemMediaTransportControlsSessionManager() =>
