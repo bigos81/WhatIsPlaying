@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Media.Control;
-using Windows.Storage.Provider;
 
 
 namespace WhatIsPlaying
