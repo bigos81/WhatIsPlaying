@@ -43,7 +43,6 @@ namespace WhatIsPlaying
             {
                 scale = scale * -1;
                 ticks = 0;
-                //this.SongLabel2.Location = new Point(this.SongLabel.Location.X - this.SongLabel.Width, this.SongLabel.Location.Y);
             }
             this.SongLabel.Location = new Point(this.SongLabel.Location.X + scale, this.SongLabel.Location.Y);
             this.SongLabel2.Location = new Point(this.SongLabel.Location.X - this.SongLabel.Width, this.SongLabel.Location.Y);
