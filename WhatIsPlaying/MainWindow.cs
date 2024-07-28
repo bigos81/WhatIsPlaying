@@ -29,35 +29,34 @@ namespace WhatIsPlaying
         
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
-            this.SongLabel.Text = WindowMediaControlUtils.GetCurrentPlayedMedia();
-            this.SongLabel2.Text = WindowMediaControlUtils.GetCurrentPlayedMedia();
+
+            string songName = WindowMediaControlUtils.GetCurrentPlayedMedia();
+            this.SongLabel.Text = songName + ' ' + songName;
             this.moveText();
             this.Refresh();
         }
 
         private void moveText()
         {   
-
             ticks = ticks + 1;
-            if (Math.Abs(ticks * this.scale) > this.SongLabel2.Width)
+            if (Math.Abs(ticks * this.scale) > this.SongLabel.Width / 2)
             {
                 scale = scale * -1;
                 ticks = 0;
             }
             this.SongLabel.Location = new Point(this.SongLabel.Location.X + scale, this.SongLabel.Location.Y);
-            this.SongLabel2.Location = new Point(this.SongLabel.Location.X - this.SongLabel.Width, this.SongLabel.Location.Y);
         }
         
         private void SongLabel_SizeChanged(object sender, EventArgs e)
         {
             if (sender is Label)
             {
-                this.Width = ((Label)sender).Bounds.Width;
+                this.Width = ((Label)sender).Bounds.Width / 2;
                 this.Height = ((Label)sender).Bounds.Height;
             }
 
             this.ticks = 0;
-            this.SongLabel.Location = new Point(0, this.SongLabel.Location.Y);
+            this.SongLabel.Location = new Point(0 - this.SongLabel.Width / 2, this.SongLabel.Location.Y);
             this.scale = Math.Abs(this.scale);
         }
 
