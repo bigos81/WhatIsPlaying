@@ -43,8 +43,11 @@ namespace WhatIsPlaying
                     var mediaProperties = await GetMediaProperties(session);
                     if (mediaProperties != null)
                     {
-                        currentSongName = String.Format("🎵 {0} - {1}", mediaProperties.Artist, mediaProperties.Title);
-                        failed_before = false;
+                        if (mediaProperties.Artist.Length > 0 && mediaProperties.Title.Length > 0)
+                        {
+                            currentSongName = String.Format("🎵 {0} - {1}", mediaProperties.Artist, mediaProperties.Title);
+                            failed_before = false;
+                        }
                     }
                 }
                 else

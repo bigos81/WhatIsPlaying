@@ -31,9 +31,13 @@ namespace WhatIsPlaying
         {
 
             string songName = WindowMediaControlUtils.GetCurrentPlayedMedia();
-            this.SongLabel.Text = songName + ' ' + songName;
-            this.moveText();
-            this.Refresh();
+            if (!String.Empty.Equals(songName))
+            {
+
+                this.SongLabel.Text = songName + ' ' + songName;
+                this.moveText();
+                this.Refresh();
+            }
         }
 
         private void moveText()
