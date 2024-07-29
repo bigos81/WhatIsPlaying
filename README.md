@@ -16,6 +16,9 @@ Here's how it looks:
 
 ![image](https://github.com/user-attachments/assets/c5f81181-b3a7-4477-bbad-0bc9897bf6bc)
 
+![image](https://github.com/user-attachments/assets/f05c5edb-5d83-4bef-b7f0-77ec30d1a7b9)
+
+
 Or on top of full screen game (World of Warcraft):
 
 ![image](https://github.com/user-attachments/assets/fdfdcaf2-4614-4b3d-ade4-b2b1b055ca19)
