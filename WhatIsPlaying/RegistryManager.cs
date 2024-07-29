@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.Drawing;
+using Windows.Security.Cryptography.Core;
 using Windows.UI;
 
 namespace WhatIsPlaying
@@ -8,9 +9,10 @@ namespace WhatIsPlaying
     {
 
         private static readonly string SubKey = "WhatIsPlaying";
-        private static readonly string FontKey = "FontColor";
+        private static readonly string FontColorKey = "FontColor";
         private static readonly string BackgroundKey = "BgColor";
         private static readonly string animateKey = "AnimateFlag";
+        private static readonly string FontKey = "Font";
 
         private RegistryKey RegistryKey;
 
@@ -27,7 +29,7 @@ namespace WhatIsPlaying
 
         public System.Drawing.Color GetFontColor()
         {
-            return this.GetColorFromReg(FontKey, System.Drawing.Color.Lime);
+            return this.GetColorFromReg(FontColorKey, System.Drawing.Color.Lime);
         }
 
         public System.Drawing.Color GetBackgroundColor()
@@ -67,7 +69,7 @@ namespace WhatIsPlaying
         public void SetFontColor(System.Drawing.Color color)
         {
             this.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(SubKey, true);
-            this.RegistryKey.SetValue(FontKey, color.ToArgb());
+            this.RegistryKey.SetValue(FontColorKey, color.ToArgb());
             this.RegistryKey.Close();
         }
 
@@ -82,6 +84,31 @@ namespace WhatIsPlaying
         {
             this.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(SubKey, true);
             this.RegistryKey.SetValue(animateKey, flag);
+            this.RegistryKey.Close();
+        }
+
+        public Font GetFont()
+        {
+            FontConverter converter = new FontConverter();
+            this.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(SubKey, true);
+            var fontKey = this.RegistryKey.GetValue(FontKey);
+            if (fontKey == null)
+            {
+                string fontStr = converter.ConvertToString(new Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
+                this.RegistryKey.SetValue(FontKey, fontStr);
+            }
+
+            Font result = converter.ConvertFromString(this.RegistryKey.GetValue(FontKey) as string) as Font;
+            this.RegistryKey.Close();
+
+            return result;
+        }
+
+        public void SetFont(Font font)
+        {
+            FontConverter converter = new FontConverter();
+            this.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(SubKey, true);
+            this.RegistryKey.SetValue(FontKey, converter.ConvertToString(font));
             this.RegistryKey.Close();
         }
     }

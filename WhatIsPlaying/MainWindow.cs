@@ -38,6 +38,7 @@ namespace WhatIsPlaying
         {
             this.SongLabel.ForeColor = this.manager.GetFontColor();
             this.SongLabel.BackColor = this.manager.GetBackgroundColor();
+            this.SongLabel.Font = this.manager.GetFont();
         }
         
         private void refreshTimer_Tick(object sender, EventArgs e)
@@ -109,10 +110,17 @@ namespace WhatIsPlaying
 
         private void SongLabel_DoubleClick(object sender, EventArgs e)
         {
-            this.Close();
+            if (e is MouseEventArgs)
+            {
+                if (((MouseEventArgs)e).Button == MouseButtons.Left)
+                {
+                    this.Close();
+                }
+            }
+            
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (sender is ToolStripMenuItem) 
             {
@@ -123,12 +131,12 @@ namespace WhatIsPlaying
             }
         }
 
-        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void fontColorToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FontColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
             dlg.ShowDialog();
@@ -137,7 +145,7 @@ namespace WhatIsPlaying
             refreshColors();
         }
 
-        private void backgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
             dlg.ShowDialog();
@@ -146,9 +154,27 @@ namespace WhatIsPlaying
             refreshColors();
         }
 
-        private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void ContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             animateToolStripMenuItem.Checked = this.animate;
+        }
+
+        private void SongLabel_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                this.contextMenu.Show(Cursor.Position);
+            }
+        }
+
+        private void ChangeFontToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FontDialog dlg = new FontDialog();
+            dlg.Font = this.SongLabel.Font;
+            dlg.ShowDialog();
+            this.SongLabel.Font = dlg.Font;
+            this.manager.SetFont(dlg.Font);
+            this.Refresh();
         }
     }
 }
