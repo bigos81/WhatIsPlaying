@@ -5,8 +5,8 @@ Simple app for creating an overlay window showing curently played song.
 Not much, but here it is:
 - Double click to close the overlay (alt+f4 works as well)
 - You can drag to reposition the window with your mouse
-- Configure colors and behaviour via tray icon
-- Stores colors and behaviour configuration in windows registry
+- Configure colors, behaviour, font via tray icon
+- Stores colors, behaviour and font via configuration in windows registry
 
 Here's how it looks:
 
