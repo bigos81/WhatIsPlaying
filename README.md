@@ -1,5 +1,5 @@
 # Overview 
-Simple app for creating an overlay windows showing curently played song.
+Simple app for creating an overlay window showing curently played song.
 
 # Functionality
 Not much, but here it is:
