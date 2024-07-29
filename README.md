@@ -8,7 +8,7 @@ Not much, but here it is:
 - Configure colors, behaviour, font via tray icon
 - Stores colors, behaviour and font via configuration in windows registry
 
-Here's how it looks:
+Here's how it looks (keep in mind that screens and animations here are from different stage of development):
 
 ![whatisplaying](https://github.com/user-attachments/assets/92340afc-ce2f-4f69-aca5-22a44184fd47)
 
