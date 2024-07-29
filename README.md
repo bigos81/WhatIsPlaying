@@ -5,12 +5,15 @@ Simple app for creating an overlay windows showing curently played song.
 Not much, but here it is:
 - Double click to close the overlay (alt+f4 works as well)
 - You can drag to reposition the window with your mouse
+- configure colors and behaviour via tray icon
 
 Here's how it looks:
 
 ![whatisplaying](https://github.com/user-attachments/assets/92340afc-ce2f-4f69-aca5-22a44184fd47)
 
 ![whatisplaying](https://github.com/user-attachments/assets/ba2d21a9-9537-487f-966c-0412cf9110fd)
+
+![image](https://github.com/user-attachments/assets/c5f81181-b3a7-4477-bbad-0bc9897bf6bc)
 
 Or on top of full screen game (World of Warcraft):
 
