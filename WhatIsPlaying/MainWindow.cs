@@ -1,41 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using WhatIsPlaying.Properties;
 
 namespace WhatIsPlaying
 {
     public partial class MainWindow : Form
     {
-
+        bool animate = true;
         int ticks = 0;
         int scale = 2;
+        NotifyIcon trayIcon = new NotifyIcon();
+        RegistryManager manager;
         
         public MainWindow()
         {
             InitializeComponent();
+            SetupTrayIcon();
+            this.manager = new RegistryManager();
+        }
+
+        private void SetupTrayIcon()
+        {
+            trayIcon.Icon = Resources.Icon;
+            trayIcon.Visible = true;
+            trayIcon.ContextMenuStrip = this.contextMenu;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Bounds = new Rectangle(0, 0, 0, 0);
+            this.refreshColors();
+        }
+
+        private void refreshColors()
+        {
+            this.SongLabel.ForeColor = this.manager.GetFontColor();
+            this.SongLabel.BackColor = this.manager.GetBackgroundColor();
         }
         
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
-
             string songName = WindowMediaControlUtils.GetCurrentPlayedMedia();
             if (!String.Empty.Equals(songName))
             {
 
                 this.SongLabel.Text = songName + ' ' + songName;
-                this.moveText();
+                if (animate)
+                    this.moveText();
+
                 this.Refresh();
             }
         }
@@ -96,6 +109,39 @@ namespace WhatIsPlaying
         private void SongLabel_DoubleClick(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sender is ToolStripMenuItem) 
+            {
+                ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked;
+                this.animate = ((ToolStripMenuItem)sender).Checked;
+                this.SongLabel_SizeChanged(null, null);
+            }
+        }
+
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void fontColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+            dlg.ShowDialog();
+            this.SongLabel.ForeColor = dlg.Color;
+            this.manager.SetFontColor(dlg.Color);
+            refreshColors();
+        }
+
+        private void backgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+            dlg.ShowDialog();
+            this.SongLabel.BackColor = dlg.Color;
+            this.manager.SetBackgroundColor(dlg.Color);
+            refreshColors();
         }
     }
 }

@@ -31,6 +31,12 @@
             this.components = new System.ComponentModel.Container();
             this.SongLabel = new System.Windows.Forms.Label();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.animateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fontColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backgroundColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // SongLabel
@@ -55,6 +61,46 @@
             this.refreshTimer.Interval = 33;
             this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
             // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.animateToolStripMenuItem,
+            this.fontColorToolStripMenuItem,
+            this.backgroundColorToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(181, 114);
+            // 
+            // animateToolStripMenuItem
+            // 
+            this.animateToolStripMenuItem.Checked = true;
+            this.animateToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.animateToolStripMenuItem.Name = "animateToolStripMenuItem";
+            this.animateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.animateToolStripMenuItem.Text = "Animate";
+            this.animateToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
+            // 
+            // fontColorToolStripMenuItem
+            // 
+            this.fontColorToolStripMenuItem.Name = "fontColorToolStripMenuItem";
+            this.fontColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fontColorToolStripMenuItem.Text = "Font Color";
+            this.fontColorToolStripMenuItem.Click += new System.EventHandler(this.fontColorToolStripMenuItem_Click);
+            // 
+            // backgroundColorToolStripMenuItem
+            // 
+            this.backgroundColorToolStripMenuItem.Name = "backgroundColorToolStripMenuItem";
+            this.backgroundColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.backgroundColorToolStripMenuItem.Text = "Background Color";
+            this.backgroundColorToolStripMenuItem.Click += new System.EventHandler(this.backgroundColorToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -72,6 +118,7 @@
             this.Text = "What is Playing";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -81,6 +128,11 @@
 
         private System.Windows.Forms.Label SongLabel;
         private System.Windows.Forms.Timer refreshTimer;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem animateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fontColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backgroundColorToolStripMenuItem;
     }
 }
 
