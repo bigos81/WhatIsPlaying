@@ -139,6 +139,7 @@ namespace WhatIsPlaying
         private void FontColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
+            dlg.Color = this.SongLabel.ForeColor;
             dlg.ShowDialog();
             this.SongLabel.ForeColor = dlg.Color;
             this.manager.SetFontColor(dlg.Color);
@@ -148,6 +149,7 @@ namespace WhatIsPlaying
         private void BackgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
+            dlg.Color = this.SongLabel.BackColor;
             dlg.ShowDialog();
             this.SongLabel.BackColor = dlg.Color;
             this.manager.SetBackgroundColor(dlg.Color);
