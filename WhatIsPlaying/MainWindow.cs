@@ -31,6 +31,7 @@ namespace WhatIsPlaying
         {
             this.Bounds = new Rectangle(0, 0, 0, 0);
             this.refreshColors();
+            this.animate = this.manager.GetAnimationFlag();
         }
 
         private void refreshColors()
@@ -117,6 +118,7 @@ namespace WhatIsPlaying
             {
                 ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked;
                 this.animate = ((ToolStripMenuItem)sender).Checked;
+                this.manager.SetAnimationFlag(this.animate);
                 this.SongLabel_SizeChanged(null, null);
             }
         }
@@ -142,6 +144,11 @@ namespace WhatIsPlaying
             this.SongLabel.BackColor = dlg.Color;
             this.manager.SetBackgroundColor(dlg.Color);
             refreshColors();
+        }
+
+        private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            animateToolStripMenuItem.Checked = this.animate;
         }
     }
 }
