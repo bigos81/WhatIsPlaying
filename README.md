@@ -1,6 +1,8 @@
 # Overview 
 Simple app for creating an overlay window showing curently played song.
 
+Download from releases here: https://github.com/bigos81/WhatIsPlaying/releases
+
 # Functionality
 Not much, but here it is:
 - Double click to close the overlay (alt+f4 works as well)
